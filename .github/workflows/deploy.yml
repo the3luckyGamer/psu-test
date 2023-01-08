@@ -1,0 +1,15 @@
+name: Deploy to Server
+on: push
+
+jobs:
+  deploy:
+    name: Deploy to Server
+    runs-on: ubuntu-latest
+    steps:
+    - name: Build Docker image and run it
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.COLD_SSH_IP }}
+        username: ${{ secrets.COLD_SSH_USERNAME }}
+        key: ${{ secrets.COLD_SSH_KEY }}
+        script: bash /psu/ci-scripts/staging.sh
